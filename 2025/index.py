@@ -21,8 +21,12 @@ for rotation in rotations:
     # update dial
     if direction == "L":
         dial = (dial - steps) % 100
+        if dial<0:
+            count+=1
     else:
         dial = (dial + steps) % 100
+        if dial>0
+        count+=1
 
     if dial == 0:
         count += 1
