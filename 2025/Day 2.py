@@ -10,17 +10,24 @@ headers = {
 
 response = requests.get(url, headers=headers).text
 
-ids = response.split(",")
-for id in ids:
+ranges = []
+
+for id in response.split(","):
     start, end = id.split("-")
-    start = int(start)
-    end = int(end)
+    ranges.append((int(start), int(end)))
 
-    print("start:", start, "end:", end)
+ranges.sort()
+sum = 0
 
+def check_validation(id: str):
+    if len(id) % 2 == 0:
+        mid = len(id) // 2
+        if id[:mid] == id[mid:]:
+            return True
 
-def check_validation(id):
-    if id==1:
-        return True
-    else:
-        return False
+for start, end in ranges:
+    for id in range(start, end + 1):
+        if check_validation(str(id)) == True:
+            sum = sum + id
+
+print(sum)
